@@ -41,7 +41,7 @@ function activate(context) {
 			pathToFile = pathToFile.substring(1);
 		}
 
-		const snippet = `\`\`\`{language=${lang} caption=${pathToFile} firstnumber=${startLine}}
+		const snippet = `\`\`\`{language=${lang} caption=${pathToFile} firstnumber=${startLine} hlines=${startLine}}
 ${text}
 \`\`\`
 `
