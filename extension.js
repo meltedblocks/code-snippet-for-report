@@ -27,7 +27,7 @@ function activate(context) {
 	
 		const selection = editor.selection;
 		const text = editor.document.getText(selection);
-		const startLine = selection._start._line;
+		const startLine = selection._start._line + 1;
 		const lang = editor.document.languageId;
 		const workspacePath = vscode.workspace.rootPath;
 		const fullPath = editor.document.fileName;
