@@ -58,6 +58,51 @@ function removeIdent(text) {
   return lines.join("\n");
 }
 
+function getHLinesFromBreakpoints(
+  breakpoints,
+  selectedTextStartLine,
+  selectedTextEndLine,
+  selectedFilePath
+) {
+  const hLines = [];
+
+  if (!breakpoints) {
+    return [];
+  }
+
+  if (breakpoints.length === 0) {
+    return [];
+  }
+
+  for (let i in breakpoints) {
+    const breakpoint = breakpoints[i];
+
+    if (!breakpoint.location) {
+      continue;
+    }
+
+    if (!breakpoint.location.range || !breakpoint.location.uri) {
+      continue;
+    }
+
+    const breakpointLine = breakpoint.location.range._start._line + 1;
+    const breakpointPath = breakpoint.location.uri.path;
+
+    if (breakpointPath !== selectedFilePath) {
+      continue;
+    }
+
+    if (
+      breakpointLine >= selectedTextStartLine &&
+      breakpointLine <= selectedTextEndLine
+    ) {
+      hLines.push(breakpointLine);
+    }
+  }
+
+  return hLines;
+}
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 
@@ -78,20 +123,36 @@ function activate(context) {
         const selection = editor.selection;
         const text = removeIdent(editor.document.getText(selection));
         const startLine = selection._start._line + 1;
+        const endLine = selection._end._line + 1;
         const lang = editor.document.languageId;
         const workspacePath = vscode.workspace.rootPath;
         const fullPath = editor.document.fileName;
+
+        //By default make start line as hline
+        let hlines = startLine;
+        const potentialHlinesArr =  getHLinesFromBreakpoints(
+          vscode.debug.breakpoints,
+          startLine,
+          endLine,
+          fullPath
+        );
+
+        if(potentialHlinesArr.length > 0) {
+          hlines = potentialHlinesArr.join(",");
+        }
         let pathToFile = fullPath;
 
+        //get relative path
         if (fullPath.split(workspacePath).length > 1) {
           pathToFile = fullPath.split(workspacePath)[1];
         }
 
+        //remove / or \ at the beginning of path
         if (pathToFile[0] === "/" || pathToFile[0] === "\\") {
           pathToFile = pathToFile.substring(1);
         }
 
-        const snippet = `\`\`\`{language=${lang} caption=${pathToFile} firstnumber=${startLine} hlines=${startLine}}
+        const snippet = `\`\`\`{language=${lang} caption=${pathToFile} firstnumber=${startLine} hlines=${hlines}}
 ${text}
 \`\`\`
 `;
