@@ -100,7 +100,7 @@ function getHLinesFromBreakpoints(
     }
   }
 
-  return hLines;
+  return hLines.sort();
 }
 
 // this method is called when your extension is activated
