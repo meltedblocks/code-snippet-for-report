@@ -13,10 +13,13 @@ function removeIdent(text) {
   const lines = text.split("\n");
   let min_ident = null;
 
-  for (let key in lines) {
+  for (let item of lines) {
     let ident = 0;
 
-    const item = lines[key];
+    //Check as some extensions add functions in code lines
+    if (typeof item !== "string") {
+      continue;
+    }
 
     //Ignore empty lines
     if (item.length === 0) {
@@ -47,15 +50,23 @@ function removeIdent(text) {
     return lines.join("\n");
   }
 
+  const newSelection = [];
+
   for (let key in lines) {
-    //Ignore empty lines
-    if (lines[key].length === 0) {
+    //Check as some extensions add functions in code lines
+    if (typeof lines[key] !== "string") {
       continue;
     }
-    lines[key] = lines[key].substring(min_ident);
+
+    //Ignore empty lines
+    if (lines[key].length === 0) {
+      newSelection.push(lines[key]);
+      continue;
+    }
+    newSelection.push(lines[key].substring(min_ident));
   }
 
-  return lines.join("\n");
+  return newSelection.join("\n");
 }
 
 function getHLinesFromBreakpoints(
@@ -130,14 +141,14 @@ function activate(context) {
 
         //By default make start line as hline
         let hlines = startLine;
-        const potentialHlinesArr =  getHLinesFromBreakpoints(
+        const potentialHlinesArr = getHLinesFromBreakpoints(
           vscode.debug.breakpoints,
           startLine,
           endLine,
           fullPath
         );
 
-        if(potentialHlinesArr.length > 0) {
+        if (potentialHlinesArr.length > 0) {
           hlines = potentialHlinesArr.join(",");
         }
         let pathToFile = fullPath;
