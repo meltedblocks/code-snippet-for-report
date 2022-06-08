@@ -13,4 +13,4 @@ Extension will generate LateX ready code snippet.
 As alternative you can add shortcut to command: `Generate Snippet`.
 
 ### Other features
-1. To for line higlighting use VS Code breakpoint - every line with breakpoint should be highlighted.
+1. For line higlighting use VS Code breakpoint - every line with breakpoint should be highlighted.
