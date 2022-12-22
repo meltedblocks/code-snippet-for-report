@@ -1,46 +1,49 @@
 {
   "name": "code-snippet-for-report",
-	"displayName": "Code Snippet for Report",
-	"description": "Make code snippets for report easier",
-	"version": "0.0.5",
-	"engines": {
-		"vscode": "^1.65.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-        "onCommand:code-snippet-for-report.generateSnippet"
-	],
-	"main": "./extension.js",
-	"contributes": {
-		"commands": [{
-            "command": "code-snippet-for-report.generateSnippet",
-            "title": "Generate Snippet"
-
-		}],
-		"menus": {
-			"editor/context": [{
-				"command": "code-snippet-for-report.generateSnippet",
-				"title": "Generate Snippet"
-		  }]
-		}
-	},
-	"scripts": {
-		"lint": "eslint .",
-		"pretest": "npm run lint",
-		"test": "node ./test/runTest.js"
-	},
-	"devDependencies": {
-        "@types/vscode": "^1.65.0",
-        "@types/glob": "^7.2.0",
-        "@types/mocha": "^9.1.0",
-        "@types/node": "14.x",
-        "eslint": "^8.9.0",
-        "glob": "^7.2.0",
-        "mocha": "^9.2.1",
-        "typescript": "^4.5.5",
-        "@vscode/test-electron": "^2.1.2"
+  "displayName": "Code Snippet for Report",
+  "description": "Make code snippets for report easier",
+  "repository": "https://github.com/meltedblocks/code-snippet-for-report",
+  "version": "0.0.5",
+  "engines": {
+    "vscode": "^1.65.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:code-snippet-for-report.generateSnippet"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "code-snippet-for-report.generateSnippet",
+        "title": "Generate Snippet"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "code-snippet-for-report.generateSnippet",
+          "title": "Generate Snippet"
+        }
+      ]
     }
-
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "node ./test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.65.0",
+    "@types/glob": "^7.2.0",
+    "@types/mocha": "^9.1.0",
+    "@types/node": "14.x",
+    "eslint": "^8.9.0",
+    "glob": "^7.2.0",
+    "mocha": "^9.2.1",
+    "typescript": "^4.5.5",
+    "@vscode/test-electron": "^2.1.2"
+  }
 }
