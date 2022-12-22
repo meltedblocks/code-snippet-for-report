@@ -3,7 +3,7 @@
   "displayName": "Code Snippet for Report",
   "description": "Make code snippets for report easier",
   "repository": "https://github.com/meltedblocks/code-snippet-for-report",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "engines": {
     "vscode": "^1.65.0"
   },
