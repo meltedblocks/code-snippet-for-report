@@ -96,7 +96,7 @@ function getHLinesFromBreakpoints(
       continue;
     }
 
-    const breakpointLine = breakpoint.location.range._start._line + 1;
+    const breakpointLine = breakpoint.location.range.start.c + 1;
     const breakpointPath = breakpoint.location.uri.path;
 
     if (breakpointPath !== selectedFilePath) {
@@ -133,8 +133,8 @@ function activate(context) {
 
         const selection = editor.selection;
         const text = removeIdent(editor.document.getText(selection));
-        const startLine = selection._start._line + 1;
-        const endLine = selection._end._line + 1;
+        const startLine = selection.start.c + 1;
+        const endLine = selection.end.c + 1;
         const lang = editor.document.languageId;
         const workspacePath = vscode.workspace.rootPath;
         const fullPath = editor.document.fileName;
